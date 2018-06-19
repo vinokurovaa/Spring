@@ -15,4 +15,5 @@ public class StandartOutMessageRenderer implements MessageRenderer {
     public MessageProvider getMessageProvider() {
         return this.messageProvider;
     }
+    //fdfd
 }

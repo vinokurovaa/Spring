@@ -31,11 +31,25 @@ public class JdbcContactDaoRowMap implements ContactDao, InitializingBean {
         return jdbcTemplate.query(sql, new ContactMapper());
     }
 
+
     public String findFirstNameById(Long id) {
         Map<String, Object> namedParams = new HashMap<String, Object>();
         namedParams.put("contactId", id);
         return jdbcTemplate.queryForObject("select first_name from contact where id = :contactId", namedParams, String.class);
     }
+
+    public List<Contact> findAllLyamda() {
+        String sql = "select id, first_name, last_name, birth_date from contact";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->{
+            Contact contact = new Contact();
+            contact.setId(rs.getLong("id"));
+            contact.setFirstName(rs.getString("first_name"));
+            contact.setLastName(rs.getString("last_name"));
+            contact.setBirthDate(rs.getDate("birth_date"));
+            return contact;
+        });
+    }
+
     public void setDataSource(DataSource dataSource){
         this.dataSource = dataSource;
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);

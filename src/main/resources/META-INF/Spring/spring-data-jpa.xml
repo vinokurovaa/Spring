@@ -54,4 +54,6 @@
     <jpa:repositories base-package="springDataJpa"
                       entity-manager-factory-ref="emf"
                       transaction-manager-ref="transactionManager"/>
+    <jpa:auditing auditor-aware-ref="auditorAwareBean"/>
+    <bean id="auditorAwareBean" class="springDataJpa.AuditorAwareBean"/>
 </beans>
